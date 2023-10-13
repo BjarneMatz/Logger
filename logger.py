@@ -1,4 +1,5 @@
 import time
+import os
 
 # Color definitions
 yellow = "\033[93m"
@@ -11,6 +12,10 @@ class Logger:
     def __init__(self, name: str) -> None:
         self.name = name
         self.path = f"logs/{name}.log".replace(" ", "_")
+        try:
+            os.mkdir("logs")
+        except FileExistsError:
+            pass
     def log(self, message: str, level: int = 0, type: str = "console") -> None:
         """Logging the given message with the given level either to the console or to a file.
 
@@ -47,6 +52,9 @@ class Logger:
                     log = f"[{time.strftime('%H:%M:%S')}] [SUCCESS] {message}"
                 elif level == 4:
                     log = f"[{time.strftime('%H:%M:%S')}] [DEBUG] {message}"
+                else:
+                    raise ValueError("Invalid level of log.")
+                file_data.write(log + "\n")
         else:
             raise ValueError("Invalid type of log.")
     def change_name(self, name: str) -> None:
