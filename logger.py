@@ -11,7 +11,7 @@ class Logger:
     def __init__(self, name: str) -> None:
         self.name = name
         self.path = f"logs/{name}.log".replace(" ", "_")
-    def log(self, message: str, level: str = "info", type: str = "console") -> None:
+    def log(self, message: str, level: int = 0, type: str = "console") -> None:
         """Logging the given message with the given level either to the console or to a file.
 
         Args:
